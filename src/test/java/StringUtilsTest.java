@@ -1,6 +1,7 @@
 import org.example.task1.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,5 +29,29 @@ public class StringUtilsTest {
         StringUtils utils = new StringUtils();
 
         assertFalse(utils.isPalindrome(null));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "hello, 2",
+            "xyz, 0",
+            ", 0",
+            "AEIOU, 5",
+    })
+    void shouldReturnAmountOfVowelsInString(String input, int expResult) {
+        StringUtils utils = new StringUtils();
+
+        int result = utils.countVowels(input);
+
+        assertEquals(expResult, result);
+    }
+
+    @Test
+    void shouldReturnZeroCountVowelsForEmptyString() {
+        StringUtils utils = new StringUtils();
+
+        int result = utils.countVowels("");
+
+        assertEquals(0, result);
     }
 }
